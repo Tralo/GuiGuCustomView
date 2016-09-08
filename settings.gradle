@@ -1,1 +1,1 @@
-include ':app', ':youku'
+include ':app', ':youku', ':propertyanimation'
