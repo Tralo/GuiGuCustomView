@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initListener() {
         iv_home.setOnClickListener(this);
         iv_menu.setOnClickListener(this);
+        rl_level1.setOnClickListener(this);
+        rl_level2.setOnClickListener(this);
+        rl_level3.setOnClickListener(this);
 
     }
 
@@ -60,6 +64,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         int viewId = view.getId();
         switch (viewId){
+            case R.id.level1:
+                Toast.makeText(MainActivity.this,"level1被点击老",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.level2:
+                Toast.makeText(MainActivity.this,"level2被点击老",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.level3:
+                Toast.makeText(MainActivity.this,"level2被点击老",Toast.LENGTH_SHORT).show();
+                break;
             case R.id.icon_home:
                 if(isShowLevel2){
                     isShowLevel2 = false;

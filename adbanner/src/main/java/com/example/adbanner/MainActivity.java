@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private void initAdapter() {
 
         vp_banner.setAdapter(new MyPagerAdapter());
-        vp_banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vp_banner.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -68,6 +68,21 @@ public class MainActivity extends AppCompatActivity {
             iv.setBackgroundResource(imageIds[i]);
 
             imageViews.add(iv);
+
+            ImageView iv_point = new ImageView(this);
+            iv_point.setBackgroundResource(R.drawable.point_selector);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(8,8);
+            iv_point.setLayoutParams(params);
+            if(i == 0){
+                iv_point.setEnabled(true);
+            } else {
+                iv_point.setEnabled(false);
+                params.leftMargin = 8;
+            }
+
+
+            ll_point_group.addView(iv_point);
+
         }
 
     }
