@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager vp_banner;
     private LinearLayout ll_point_group;
     private TextView tv_title;
+    private int prePosition = 0;
 
 
     private List<ImageView> imageViews = new ArrayList<ImageView>();
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         initChildPage();
         initAdapter();
 
+        //设置中间位置
+        int item = Integer.MAX_VALUE/2 - Integer.MAX_VALUE/2%imageViews.size();//要保证imageViews的整数倍
+        vp_banner.setCurrentItem(item);
     }
 
     private void initAdapter() {
@@ -51,8 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                vp_banner.setCurrentItem(position);
-                tv_title.setText(titles[position]);
+                int realPosition = position % imageIds.length;
+
+                tv_title.setText(titles[realPosition]);
+                ll_point_group.getChildAt(prePosition).setEnabled(false);
+                ll_point_group.getChildAt(realPosition).setEnabled(true);
+                prePosition = realPosition;
             }
 
             @Override
@@ -102,19 +110,21 @@ public class MainActivity extends AppCompatActivity {
     class MyPagerAdapter extends PagerAdapter{
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView iv = imageViews.get(position);
+            int realPosition = position % imageIds.length;
+
+            ImageView iv = imageViews.get(realPosition);
             container.addView(iv);
             return iv;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(imageViews.get(position));
+            container.removeView((View) object);
         }
 
         @Override
         public int getCount() {
-            return imageViews.size();
+            return Integer.MAX_VALUE;
         }
 
         @Override
