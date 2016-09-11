@@ -6,6 +6,8 @@
     tools:context="net.expressproj.customonoff.MainActivity">
 
     <net.expressproj.customonoff.MyToggleButton
+        android:id="@+id/tb"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>
