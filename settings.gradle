@@ -1,1 +1,1 @@
-include ':app', ':youku', ':propertyanimation', ':adbanner', ':showtipinputtext', ':customonoff'
+include ':app', ':youku', ':propertyanimation', ':adbanner', ':showtipinputtext', ':customonoff', ':customattr'
