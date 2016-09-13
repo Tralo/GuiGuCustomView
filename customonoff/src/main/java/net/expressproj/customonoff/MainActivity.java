@@ -1,7 +1,9 @@
 package net.expressproj.customonoff;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
 
 /**
  *  一个视图从创建到显示过程中的主要方法
@@ -13,13 +15,14 @@ import android.os.Bundle;
  *  4.绘制视图--draw()-->onDraw(canvas)
  *  根据上面两个方法参数，进入绘制
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private MyToggleButton tb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         tb = (MyToggleButton) findViewById(R.id.tb);
 
