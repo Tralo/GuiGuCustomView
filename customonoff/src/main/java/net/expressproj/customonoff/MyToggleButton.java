@@ -77,6 +77,7 @@ public class MyToggleButton extends View implements View.OnClickListener{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 lastX = event.getX();
