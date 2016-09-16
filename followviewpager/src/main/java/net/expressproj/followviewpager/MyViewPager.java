@@ -13,6 +13,8 @@ import android.widget.Toast;
  */
 public class MyViewPager extends ViewGroup {
 
+    private MyScroller scroller;
+
     /**
      * 手势识别器
      * 1.定义出来
@@ -28,6 +30,7 @@ public class MyViewPager extends ViewGroup {
     }
 
     private void initView(final Context context) {
+        scroller = new MyScroller();
         detector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
             @Override
             public void onLongPress(MotionEvent e) {
@@ -60,12 +63,71 @@ public class MyViewPager extends ViewGroup {
             childView.layout(getWidth() * i,0,(i+1) * getWidth(),getHeight());
         }
     }
+    private float startX;
+    private int currentIndex = 0;
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         //3.把事件传递给手势识别器
         detector.onTouchEvent(event);
+
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                //1.记录坐标
+                startX = event.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+
+                break;
+            case MotionEvent.ACTION_UP:
+                //2.来到新的坐标
+                float endX = event.getX();
+
+                int tempIndex = currentIndex;
+                if((startX - endX) > getWidth() / 2){
+                    tempIndex++;
+                } else if((endX - startX) > getWidth() / 2){
+                    tempIndex--;
+                }
+                //根据下标位置移动到指定的页面
+                scrollToPager(tempIndex);
+
+                break;
+        }
+
         return true;
+    }
+
+    /**
+     * 屏蔽非法值
+     * @param tempIndex
+     */
+    private void scrollToPager(int tempIndex) {
+        if(tempIndex < 0){
+            tempIndex = 0;
+        } else if(tempIndex > getChildCount() - 1){
+            tempIndex = getChildCount() - 1;
+        }
+        //当前页面的下标位置
+        currentIndex = tempIndex;
+        float distanceX = currentIndex * getWidth() - getScrollX();
+//        scrollTo(getWidth() * currentIndex,getScrollY());
+
+        scroller.startScroll(getScrollX(),getScaleY(),distanceX,0);
+
+        invalidate();
+    }
+
+    @Override
+    public void computeScroll() {
+//        super.computeScroll();
+        while(scroller.computeScrollOffset()){
+            float currX = scroller.getCurrX();
+            scrollTo((int)currX,0);
+            invalidate();
+        }
     }
 }
