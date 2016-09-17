@@ -6,6 +6,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Scroller;
 import android.widget.Toast;
 
 /**
@@ -13,7 +14,7 @@ import android.widget.Toast;
  */
 public class MyViewPager extends ViewGroup {
 
-    private MyScroller scroller;
+    private Scroller scroller;
 
     /**
      * 手势识别器
@@ -30,7 +31,7 @@ public class MyViewPager extends ViewGroup {
     }
 
     private void initView(final Context context) {
-        scroller = new MyScroller();
+        scroller = new Scroller(context);
         detector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
             @Override
             public void onLongPress(MotionEvent e) {
@@ -116,7 +117,7 @@ public class MyViewPager extends ViewGroup {
         float distanceX = currentIndex * getWidth() - getScrollX();
 //        scrollTo(getWidth() * currentIndex,getScrollY());
 
-        scroller.startScroll(getScrollX(),getScaleY(),distanceX,0);
+        scroller.startScroll((int)getScrollX(),(int)getScaleY(),(int)distanceX,0,500);
 
         invalidate();
     }
