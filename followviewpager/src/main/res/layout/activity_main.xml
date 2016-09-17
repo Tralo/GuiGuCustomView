@@ -5,9 +5,18 @@
     android:layout_height="match_parent"
     tools:context="net.expressproj.followviewpager.MainActivity">
 
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+    </RadioGroup>
+
 
     <net.expressproj.followviewpager.MyViewPager
         android:id="@+id/mvp"
+        android:layout_below="@+id/rg_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
